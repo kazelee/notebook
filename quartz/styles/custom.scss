@@ -10,11 +10,69 @@
   --codeFont: "JetBrains Mono"; // ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
-// https://github.com/jackyzha0/quartz/issues/2514
-ul.toc-content.overflow
-{
-    max-height: calc(100% - 21rem); // changed from 2rem to 21rem
+// 发现 Quartz 自带的一个特性：如果文档内容为空，就不会显示编辑时间，直到有内容了才显示
+// 干脆所有文章都别显示时间了，全部去掉算了（需要显示的，直接使用另一个标签，在元数据中显示）
+// 突然发现好像之前 `{folder}/index` 型文件的时间在 properties 上面，当时内容为空
+// 现在发现如果添加了内容，作为文件夹的文件，仍然会和普通文件一样，在 properties 下面显示时间
+.page-header {
+    // grid-template-columns: 3fr 1fr;   // 其实不需要，这个是为下面的 .page-listing 服务的
+
+    p.content-meta:has(> time) {
+        display: none;
+    }
 }
+
+// 模仿下面的 css 配置，把 Recent Notes 的日期也隐藏了
+// 这个 css 甚至对点开页面的时间也有隐藏的效果 (合理，都是 recent notes 插件的功能)
+// 补充：其实应该是下面 page-listing 的功劳……
+.recent-notes div.section {
+//   grid-template-columns: 3fr 1fr;
+
+  p.meta:has(> time) {
+    display: none;
+  }
+}
+
+// https://github.com/jackyzha0/quartz/issues/2034
+.page-listing div.section {
+  grid-template-columns: 3fr 1fr;
+
+  p.meta:has(> time) {
+    display: none;
+  }
+}
+
+// https://github.com/jackyzha0/quartz/issues/2514
+// ul.toc-content.overflow
+// {
+//     max-height: calc(100% - 21rem); // changed from 2rem to 21rem
+// }
+// 确保父容器（侧边栏）是 Flex 列布局
+// 如果 Quartz 默认已经是，可以省略 .sidebar 选择器，直接针对 .toc
+// .sidebar, .toc {
+//     display: flex;
+//     flex-direction: column;
+//     height: 100%; // 或 100vh，视父级而定
+// }
+
+// // 让目录内容占据剩余空间，并在内部滚动
+// #toc-content, ul.toc-content.overflow {
+//     flex: 1 1 auto;      // 动态占据剩余高度
+//     min-height: 0;        // 关键：允许 flex 子项在必要时收缩
+//     overflow-y: auto;     // 内容超出时出现滚动条
+//     max-height: none;     // 移除任何固定的 max-height 限制
+// }
+// .toc {
+//     height: 100%; // 继承侧边栏高度
+//     display: flex;
+//     flex-direction: column;
+// }
+
+// #toc-content, ul.toc-content.overflow {
+//     height: 100%;
+//     max-height: calc(100% - 3.5rem); // 仅扣除按钮等固定元素的高度
+//     overflow-y: auto;
+// }
 
 .table-container > table {
 	width: 100%;
@@ -300,4 +358,58 @@ pre:not(:has(> code.mermaid)) > code[data-theme*=" "] {
 #quartz-body .right.sidebar .toc > ul.toc-content.overflow.gradient-active {
 	-webkit-mask-image: none;
 	mask-image: none;
+}
+
+// 主题只修改了 right.sidebar，这里对左侧也修改
+#quartz-body .left.sidebar {
+	overflow-y: auto;
+}
+
+#quartz-body .left.sidebar .toc {
+	min-height: 0;
+	flex: 1 1 auto;
+}
+
+#quartz-body .left.sidebar .toc > ul.toc-content.overflow {
+	max-height: none;
+	padding-bottom: 0.75rem;
+}
+
+#quartz-body .left.sidebar .toc > ul.toc-content.overflow.gradient-active {
+	-webkit-mask-image: none;
+	mask-image: none;
+}
+
+// 上述修改会导致原本的目录收起功能没用，目录默认展开且无法收起
+// 不过这反而符合实际的需要，干脆直接隐藏收起的符号
+/* 隐藏折叠箭头图标 */
+.toc .toc-header svg {
+  display: none !important;
+}
+
+/* 把 button 重置成普通文本的外观与交互 */
+.toc .toc-header {
+  display: flex;              /* 保留 Quartz 原有布局，避免破坏对齐 */
+  align-items: center;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: text;               /* 输入/文本选择光标，而非手型 */
+  user-select: text;
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+}
+
+/* 确保内部的 h3 也继承文本光标并可选中 */
+.toc .toc-header h3 {
+  margin: 0;
+  cursor: text;
+  user-select: text;
+  -webkit-user-select: text;
 }

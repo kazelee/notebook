@@ -224,9 +224,10 @@ plugins:
     enabled: true
     options:
       links:
-        GitHub: https://github.com/kazelee
+        GitHub: https://github.com/kazelee/notebook
         字体: https://github.com/Warren2060/ChillRound
         主题参考: https://fdscend.github.io/obsidian_tutorial/
+        部署参考: https://kazelee.github.io/zh-docs-quartz-v5/
   # https://jzhao.xyz/ 的 Selected Writing 是利用 Recent Notes 插件实现的
   # 参考: https://github.com/jackyzha0/jackyzha0.github.io/blob/v4/quartz.layout.ts
   # 但是一定会显示日期，这不是我想要的，所以没必要用这个插件实现「只显示文件夹」的效果
