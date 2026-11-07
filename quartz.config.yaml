@@ -1,0 +1,315 @@
+# yaml-language-server: $schema=./quartz/plugins/quartz-plugins.schema.json
+configuration:
+  pageTitle: 孑叶的笔记本
+  pageTitleSuffix: "｜孑叶的笔记本"
+  enableSPA: true
+  enablePopovers: true
+  analytics: null
+  locale: zh-CN
+  baseUrl: kazelee.github.io/notebook
+  ignorePatterns:
+    - private
+    - templates
+    - .obsidian
+    - .vscode
+    - .doc
+    - Clippings
+    - template
+    - AGENTS.md
+    - CLAUDE.md
+  theme:
+    # 页面字体由 quartz/styles/custom.scss 的 :root 变量覆盖为 寒蝉全圆体（优先级最高）
+    # 此处保留 Google Fonts 可用的字体，供 og-image 插件渲染社交分享图时抓取/缓存
+    fontOrigin: local
+    cdnCaching: true
+    typography:
+      header: Noto Sans SC
+      body: Noto Sans SC
+      code: JetBrains Mono
+    colors:
+      lightMode:
+        light: "#faf8f8"
+        lightgray: "#e5e5e5"
+        gray: "#b8b8b8"
+        darkgray: "#4e4e4e"
+        dark: "#2b2b2b"
+        secondary: "#284b63"
+        tertiary: "#84a59d"
+        highlight: rgba(143, 159, 169, 0.15)
+        textHighlight: "#fff23688"
+      darkMode:
+        light: "#161618"
+        lightgray: "#393639"
+        gray: "#646464"
+        darkgray: "#d4d4d4"
+        dark: "#ebebec"
+        secondary: "#7b97aa"
+        tertiary: "#84a59d"
+        highlight: rgba(143, 159, 169, 0.15)
+        textHighlight: "#b3aa0288"
+plugins:
+  - source: "@quartz-community/created-modified-date"
+    enabled: true
+    options:
+      defaultDateType: created
+      priority:
+        - frontmatter
+        - git
+        - filesystem
+    order: 10
+  - source: "@quartz-community/syntax-highlighting"
+    enabled: true
+    options:
+      theme:
+        light: github-light
+        dark: github-dark
+      keepBackground: false
+    order: 20
+  - source: "@quartz-community/obsidian-flavored-markdown"
+    enabled: true
+    options:
+      enableInHtmlEmbed: false
+      enableCheckbox: true
+      highlight: false # ==高亮== 交给 quartz_highlight_colors 接管，支持内部嵌套 Markdown
+    order: 30
+  - source: "@obsidian-tutorial/emoji-shortcodes"
+  # - source: "./quartz/plugins/emoji-shortcodes"
+    enabled: true
+    order: 35
+  - source: "@quartz-community/github-flavored-markdown"
+    enabled: true
+    order: 40
+  - source: "@quartz-community/table-of-contents"
+    enabled: true
+    order: 50
+    layout:
+      position: left
+      priority: 50
+  - source: "@quartz-community/crawl-links"
+    enabled: true
+    options:
+      markdownLinkResolution: shortest
+    order: 60
+  - source: "@quartz-community/description"
+    enabled: true
+    order: 70
+  - source: "@quartz-community/latex"
+    enabled: true
+    options:
+      renderEngine: katex
+    order: 80
+  - source: "@quartz-community/hard-line-breaks"
+    enabled: true
+    order: 90
+  - source: "@quartz-community/quartz-fonts"
+    enabled: true
+    options:
+      fontOrigin: local
+      title: 寒蝉全圆体
+      body: 寒蝉全圆体
+      header: 寒蝉全圆体
+      code: JetBrains Mono
+  - source: "@quartz-community/remove-draft"
+    enabled: true
+  - source: "@quartz-community/alias-redirects"
+    enabled: true
+  - source: "@quartz-community/content-index"
+    enabled: true
+    options:
+      enableSiteMap: true
+      enableRSS: true
+  - source: "@quartz-community/favicon"
+    enabled: true
+  - source: "@quartz-community/og-image"
+    enabled: true
+  - source: "@quartz-community/cname"
+    enabled: true
+  - source: "@quartz-community/canvas-page"
+    enabled: true
+  - source: "@quartz-community/content-page"
+    enabled: true
+  - source: "@quartz-community/folder-page"
+    enabled: true
+  - source: "@quartz-community/tag-page"
+    enabled: true
+    order: 50
+    layout:
+      position: right
+      priority: 60
+  # 吐槽1: 可以更改 'explorer' 为其他字符，所以之前折腾字体其实没啥必要
+  # 吐槽2: 这个 explorer 与收起的箭头的间距，比 TOC 的间距要小，并排很不美观
+  # 吐槽3: 如果 explorer 和 TOC 都放在左侧，且 TOC 很长时，explorer 将无法打开
+  - source: "@quartz-community/explorer"
+  #   enabled: true
+  #   options:
+  #     title: '文件管理'
+  #   layout:
+  #     position: right
+  #     priority: 45
+  # - source: "@quartz-community/explorer"
+    # enabled: true
+    # options:
+    #   title: '探索'
+    # layout:
+    #   position: left
+    #   priority: 45
+  # 这个是后面出现的 bug: 如果不使用本地的设置，而是使用上面直接拉取的方式，会无法显示
+  # 而如果不适用 `@` 开头的格式，没法像 issue 参考的案例一样，使用 `componentRegistry.setOptionOverrides` 进行覆盖
+  # 不过经过考量，现在觉得也没必要使用 explorer 了，本来就是因为 recent note 没法自定义才又考虑的 explorer
+  # 现在直接用 recent notes 就行，正常使用 obsidian 的习惯，本来就是双链替代文件结构，没必要强调文件
+  # 包括使用 文件夹下 index.md 的形式，将英文文件夹替换成具体的中文文本，这样是完全没有必要的，也不符合 obsidian 的使用习惯
+  # - source: github:quartz-community/explorer
+    enabled: false
+    # order: 25
+    # options:
+    #   title: '文件管理'
+    # layout:
+    #   position: right
+    #   priority: 50
+  - source: "@quartz-community/graph"
+    enabled: true
+    layout:
+      position: right
+      priority: 40
+  - source: "@quartz-community/search"
+    enabled: true
+    layout:
+      position: left
+      priority: 20
+      group: toolbar
+      groupOptions:
+        grow: true
+  - source: "@quartz-community/backlinks"
+    enabled: true
+    layout:
+      position: right
+      priority: 60
+  - source: "@quartz-community/article-title"
+    enabled: true
+    layout:
+      position: beforeBody
+      priority: 10
+  - source: "@quartz-community/content-meta"
+    enabled: true
+    layout:
+      position: beforeBody
+      priority: 20
+  - source: "@quartz-community/tag-list"
+    enabled: false
+  - source: "@quartz-community/page-title"
+    enabled: true
+    layout:
+      position: left
+      priority: 10
+  - source: "@quartz-community/darkmode"
+    enabled: true
+    layout:
+      position: left
+      priority: 30
+      group: toolbar
+  - source: "@quartz-community/reader-mode"
+    enabled: true   # 主要是移动端也会显示这个按钮，让人困惑 (或者改成桌面端限定吧)
+    layout:
+      position: left
+      priority: 35
+      group: toolbar
+      display: desktop-only
+  - source: "@quartz-community/breadcrumbs"
+    enabled: true
+    layout:
+      position: beforeBody
+      priority: 5
+      condition: not-index
+  - source: "@quartz-community/footer"
+    enabled: true
+    options:
+      links:
+        GitHub: https://github.com/kazelee
+        字体: https://github.com/Warren2060/ChillRound
+        主题参考: https://fdscend.github.io/obsidian_tutorial/
+  # https://jzhao.xyz/ 的 Selected Writing 是利用 Recent Notes 插件实现的
+  # 参考: https://github.com/jackyzha0/jackyzha0.github.io/blob/v4/quartz.layout.ts
+  # 但是一定会显示日期，这不是我想要的，所以没必要用这个插件实现「只显示文件夹」的效果
+  - source: "@quartz-community/recent-notes"
+  # - source: github:quartz-community/recent-notes
+    enabled: true
+    options:
+      title: 固定的文档
+      limit: 1
+      showTags: false
+      hideTagPages: true
+      hideFolderPages: true
+      # linkToMore: true   # string | false | undefined，如果设置 true 会报错，万恶的 ts
+      # 吐槽：这个设置不是筛选什么文件应该被筛选，只是声明结果在什么 slug 下展示，绝了，然后 ts 的筛选还没用
+      linkToMore: "bases/"
+    order: 50
+    layout:
+      position: left
+      priority: 45
+      display: all
+  - source: "@quartz-community/spacer"
+    enabled: true
+    options: {}
+    order: 25
+    layout:
+      position: left
+      priority: 25
+      display: mobile-only
+  - source: "@quartz-community/bases-page"
+    enabled: true
+    options: {}
+    order: 50
+  - source: "@quartz-community/note-properties"
+    enabled: true
+    options:
+      includeAll: false
+      includedProperties:
+        - description
+        - tags
+        - aliases
+        - permalink
+        - source
+        - urls
+      excludedProperties: []
+      hidePropertiesView: false
+      delimiters: ---
+      language: yaml
+    order: 5
+    layout:
+      position: beforeBody
+      priority: 15
+      display: all
+  - source: "@quartz-community/unlisted-pages"
+    enabled: true
+    options: {}
+    order: 45
+  - source: "@quartz-community/stacked-pages"
+    enabled: false
+  - source: github:FDscend/quartz_highlight_colors#v0.2.0
+    enabled: true
+    order: 36
+layout:
+  groups:
+    toolbar:
+      priority: 35
+      direction: row
+      gap: 0.5rem
+  byPageType:
+    "404":
+      positions:
+        beforeBody: []
+        left: []
+        right: []
+    content: {}
+    folder:
+      exclude:
+        - reader-mode
+      positions:
+        right: []
+    tag:
+      exclude:
+        - reader-mode
+      positions:
+        right: []
+    canvas: {}
+    bases: {}

@@ -15,8 +15,7 @@ function getPageTypes(ctx: BuildCtx): QuartzPageTypePluginInstance[] {
   return (ctx.cfg.plugins.pageTypes ?? []) as unknown as QuartzPageTypePluginInstance[]
 }
 
-/** @internal Exported for testing only. */
-export function resolveLayout(
+function resolveLayout(
   pageType: QuartzPageTypePluginInstance,
   sharedDefaults: Partial<FullPageLayout>,
   byPageType: Record<string, Partial<FullPageLayout>>,
@@ -32,13 +31,12 @@ export function resolveLayout(
     afterBody: overrides.afterBody ?? sharedDefaults.afterBody ?? [],
     left: overrides.left ?? sharedDefaults.left ?? [],
     right: overrides.right ?? sharedDefaults.right ?? [],
-    footer: overrides.footer ?? sharedDefaults.footer ?? [],
+    footer: overrides.footer ?? sharedDefaults.footer!,
     frame,
   }
 }
 
-/** @internal Exported for testing only. */
-export function collectComponents(
+function collectComponents(
   pageTypes: QuartzPageTypePluginInstance[],
   sharedDefaults: Partial<FullPageLayout>,
   byPageType: Record<string, Partial<FullPageLayout>>,
@@ -54,7 +52,7 @@ export function collectComponents(
       ...layout.afterBody,
       ...layout.left,
       ...layout.right,
-      ...layout.footer,
+      layout.footer,
     ]
     for (const c of all) {
       if (c) seen.add(c)

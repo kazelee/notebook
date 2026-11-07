@@ -57,6 +57,12 @@ export default (() => {
             )}
           </>
         )}
+        {/* 霞鹜文楷（LXGW WenKai）webfont，通过 jsDelivr CDN 按 unicode-range 子集加载 */}
+        <link rel="preconnect" href="https://cdn.jsdelivr.net" crossOrigin="anonymous" />
+        <link
+          rel="stylesheet"
+          href="https://cn-font.claude-code-best.win/packages/hcqyt/dist/ChillRoundFRegular/result.css"
+        />
         <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossOrigin="anonymous" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 

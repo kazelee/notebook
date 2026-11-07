@@ -1,17 +1,19 @@
-# Quartz v5
+# loneleaf's Notebook
 
-> “[One] who works with the door open gets all kinds of interruptions, but [they] also occasionally gets clues as to what the world is and what might be important.” — Richard Hamming
+> 记一辈子笔记！！！！！
 
-Quartz is a set of tools that helps you publish your [digital garden](https://jzhao.xyz/posts/networked-thought) and notes as a website for free.
+## 内容说明
 
-🔗 Read the documentation and get started: https://quartz.jzhao.xyz/
+记录自己关于创作的笔记和心得体会。
 
-[Join the Discord Community](https://discord.gg/cRFFHYye7t)
+## 技术说明
 
-## Sponsors
+1. 基于 [Quartz 5](https://quartz.jzhao.xyz/) 搭建
+2. 主题参考 [Obsidian 教程 | Obsidian 教程](https://fdscend.github.io/obsidian_tutorial/) (其实是 Obsidian 的 Border 主题)
+3. 字体使用 [寒蝉全圆体](https://github.com/Warren2060/ChillRound)，CDN 在线字体来源 [字图 CDN | 一个免费中文字体公益 CDN 服务 | 中文网字计划](https://chinese-font.netlify.app/zh-cn/cdn/)
 
-<p align="center">
-  <a href="https://github.com/sponsors/jackyzha0">
-    <img src="https://cdn.jsdelivr.net/gh/jackyzha0/jackyzha0/sponsorkit/sponsors.svg" />
-  </a>
-</p>
+<!--
+## 差点退坑
+
+Quartz 用的人少果然是有原因的，Quartz v5 用的人就更少了。
+-->
