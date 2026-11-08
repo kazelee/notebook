@@ -7,7 +7,9 @@
   --titleFont: "寒蝉全圆体", system-ui, "Segoe UI", Roboto, sans-serif;
   --headerFont: "寒蝉全圆体", system-ui, "Segoe UI", Roboto, sans-serif;
   --bodyFont: "寒蝉全圆体", system-ui, "Segoe UI", Roboto, sans-serif;
-  --codeFont: "JetBrains Mono"; // ui-monospace, SFMono-Regular, Menlo, monospace;
+//   --codeFont: "JetBrains Mono"; // ui-monospace, SFMono-Regular, Menlo, monospace;
+// 这也碰巧解决了标题的链接为什么不显示为 寒蝉全圆体 的原因：因为标题的链接使用了 code 格式
+  --codeFont: "JetBrains Mono", "寒蝉全圆体", ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
 // 发现 Quartz 自带的一个特性：如果文档内容为空，就不会显示编辑时间，直到有内容了才显示

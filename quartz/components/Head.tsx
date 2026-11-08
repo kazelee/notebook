@@ -57,11 +57,16 @@ export default (() => {
             )}
           </>
         )}
-        {/* 霞鹜文楷（LXGW WenKai）webfont，通过 jsDelivr CDN 按 unicode-range 子集加载 */}
+        {/* 寒蝉全圆体 webfont，通过 中文网字计划 CDN 加载 */}
         <link rel="preconnect" href="https://cdn.jsdelivr.net" crossOrigin="anonymous" />
         <link
           rel="stylesheet"
           href="https://cn-font.claude-code-best.win/packages/hcqyt/dist/ChillRoundFRegular/result.css"
+        />
+        {/* 使用 CDN 的 JetBrains Mono 字体，代替 Google Fonts，避免混合配置带来的显示问题 */}
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono@5.3.0/400.min.css"
         />
         <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossOrigin="anonymous" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />

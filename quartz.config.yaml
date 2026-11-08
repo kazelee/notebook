@@ -80,11 +80,13 @@ plugins:
     enabled: true
     order: 40
   - source: "@quartz-community/table-of-contents"
+  # - source: github:quartz-community/table-of-contents
     enabled: true
     order: 50
     layout:
       position: left
       priority: 50
+      display: desktop-only   # 移动端会直接跟在搜索框的右侧，也许可以通过 css 调整，不过不折腾了
   - source: "@quartz-community/crawl-links"
     enabled: true
     options:
@@ -109,6 +111,14 @@ plugins:
       body: 寒蝉全圆体
       header: 寒蝉全圆体
       code: JetBrains Mono
+  # - source: "@quartz-community/quartz-fonts"
+  #   enabled: true
+  #   options:
+  #     fontOrigin: googleFonts
+  #     # title: 寒蝉全圆体
+  #     # body: 寒蝉全圆体
+  #     # header: 寒蝉全圆体
+  #     code: JetBrains Mono
   - source: "@quartz-community/remove-draft"
     enabled: true
   - source: "@quartz-community/alias-redirects"
@@ -172,6 +182,7 @@ plugins:
       position: right
       priority: 40
   - source: "@quartz-community/search"
+  # - source: github:quartz-community/search
     enabled: true
     layout:
       position: left
@@ -181,6 +192,9 @@ plugins:
         grow: true
   - source: "@quartz-community/backlinks"
     enabled: true
+    options:
+      hideWhenEmpty: true   # 本来打算改成 false，这样移动端下方的结构固定
+                            # 但提示「无法找到反向链接」还是太突兀了，干脆使用默认
     layout:
       position: right
       priority: 60
@@ -202,38 +216,77 @@ plugins:
       position: left
       priority: 10
   - source: "@quartz-community/darkmode"
+  # - source: github:quartz-community/darkmode
     enabled: true
     layout:
       position: left
       priority: 30
       group: toolbar
   - source: "@quartz-community/reader-mode"
-    enabled: true   # 主要是移动端也会显示这个按钮，让人困惑 (或者改成桌面端限定吧)
+    enabled: false   # 主要是移动端也会显示这个按钮，让人困惑 (或者改成桌面端限定吧)
+                     # 还是去掉吧，我也不需要这个功能，多一个按钮还容易误触，没必要留着
     layout:
       position: left
       priority: 35
       group: toolbar
       display: desktop-only
+  # - source: local:quartz/components/MobileTocDrawer
+  #   enabled: true
+  #   layout:
+  #     position: left      # 放入 header（toolbar 属于 header 区域）
+  #     group: toolbar        # 归入 toolbar 组
+  #     display: mobile-only  # 关键：仅在移动端可见
+  #     priority: 10
   - source: "@quartz-community/breadcrumbs"
     enabled: true
+    # options:
+    #   title: '导航'
+    layout:
+      position: left
+      priority: 40
+      display: desktop-only
+      condition: not-index
+  # 既然不能支持桌面端和移动端的分支判断，自定义不同的位置，那只能开两个，然后分别设置了
+  - source: "@quartz-community/breadcrumbs"
+    enabled: true
+    # options:
+    #   title: '导航'
     layout:
       position: beforeBody
       priority: 5
+      display: mobile-only
       condition: not-index
   - source: "@quartz-community/footer"
     enabled: true
     options:
       links:
         GitHub: https://github.com/kazelee/notebook
-        字体: https://github.com/Warren2060/ChillRound
-        主题参考: https://fdscend.github.io/obsidian_tutorial/
-        部署参考: https://kazelee.github.io/zh-docs-quartz-v5/
+        # 字体: https://github.com/Warren2060/ChillRound
+        Font: https://github.com/Warren2060/ChillRound
+        # 主题参考: https://fdscend.github.io/obsidian_tutorial/
+        Theme Reference: https://fdscend.github.io/obsidian_tutorial/
+        # 部署参考: https://kazelee.github.io/zh-docs-quartz-v5/
+  # - source: local:quartz/components/FooterTargetBlank   # 本地组件路径
+  #   enabled: true
+  #   options:
+  #     links:
+  #       GitHub: https://github.com/kazelee/notebook
+  #       字体: https://github.com/Warren2060/ChillRound
+  #       主题参考: https://fdscend.github.io/obsidian_tutorial/
+  #       部署参考: https://kazelee.github.io/zh-docs-quartz-v5/
+  #   layout:
+  #     position: afterBody
+  #     priority: 100   # 数值越大越靠后，放在 afterBody 的末尾即可
+        # 部署参考: '<a herf="https://kazelee.github.io/zh-docs-quartz-v5/" target="_blank"></a>'
   # https://jzhao.xyz/ 的 Selected Writing 是利用 Recent Notes 插件实现的
   # 参考: https://github.com/jackyzha0/jackyzha0.github.io/blob/v4/quartz.layout.ts
   # 但是一定会显示日期，这不是我想要的，所以没必要用这个插件实现「只显示文件夹」的效果
   - source: "@quartz-community/recent-notes"
   # - source: github:quartz-community/recent-notes
-    enabled: true
+  # 结果，移动端发现了 bug，这个固定并不会显示在左侧，而是直接跟在搜索框和日夜主题后面，而且目录也是这样
+  # 由此可以看出，Explorer 的左侧按钮边栏，应该是 Explorer 这个插件特有的，而不是 Quartz 的移动端渲染模式
+  # 即使是作者的博客网站，也将左侧的两个 recent notes 都在移动端移动到了文档的底部，并且没有侧边的按钮
+    enabled: false
     options:
       title: 固定的文档
       limit: 1
