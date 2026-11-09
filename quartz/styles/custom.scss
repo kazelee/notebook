@@ -7,74 +7,72 @@
   --titleFont: "寒蝉全圆体", system-ui, "Segoe UI", Roboto, sans-serif;
   --headerFont: "寒蝉全圆体", system-ui, "Segoe UI", Roboto, sans-serif;
   --bodyFont: "寒蝉全圆体", system-ui, "Segoe UI", Roboto, sans-serif;
-//   --codeFont: "JetBrains Mono"; // ui-monospace, SFMono-Regular, Menlo, monospace;
-// 这也碰巧解决了标题的链接为什么不显示为 寒蝉全圆体 的原因：因为标题的链接使用了 code 格式
   --codeFont: "JetBrains Mono", "寒蝉全圆体", ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
-// 发现 Quartz 自带的一个特性：如果文档内容为空，就不会显示编辑时间，直到有内容了才显示
-// 干脆所有文章都别显示时间了，全部去掉算了（需要显示的，直接使用另一个标签，在元数据中显示）
-// 突然发现好像之前 `{folder}/index` 型文件的时间在 properties 上面，当时内容为空
-// 现在发现如果添加了内容，作为文件夹的文件，仍然会和普通文件一样，在 properties 下面显示时间
-.page-header {
-    // grid-template-columns: 3fr 1fr;   // 其实不需要，这个是为下面的 .page-listing 服务的
+// https://github.com/jady21a/quartz/blob/main/quartz/styles/custom.scss
+.home-nav-list {
+  display: grid;
+  // 栅格总宽对齐 hero 最长一行文字(约 37 个全角字符),不铺满整个内容栏
+  grid-template-columns: repeat(2, 1fr);
+  max-width: 43rem;
+  gap: 1.1rem;
+  margin: 1.6rem 0 0;
 
-    p.content-meta:has(> time) {
-        display: none;
+  // 手机上保持双列,间距收窄挤出文字空间
+  @media all and (max-width: 480px) {
+    gap: 0.7rem;
+  }
+}
+
+a.home-nav-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1.15rem 1.25rem;
+
+  // 手机双列时卡片较窄,收内边距避免文字挤成多行
+  @media all and (max-width: 480px) {
+    padding: 0.85rem 0.9rem;
+  }
+  border: 1px solid var(--lightgray);
+  border-radius: 8px;
+  // 淡鼠尾草绿底(--tertiary 22%)+ 主题蓝标题:给首屏一处色彩锚点,
+  // 全部取自既有色盘,亮暗模式自动适配
+  background-color: color-mix(in srgb, var(--tertiary) 22%, transparent);
+  text-decoration: none;
+  transition:
+    border-color 0.2s ease,
+    transform 0.2s ease;
+
+  .item-title {
+    font-family: var(--headerFont);
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: var(--secondary);
+    transition: color 0.2s ease;
+  }
+
+  .item-desc {
+    font-size: 0.85rem;
+    color: var(--darkgray);
+    opacity: 0.8;
+  }
+
+  // 触屏设备没有真悬停,点击后 hover 态会"粘住",所以只在有鼠标的设备上启用
+  @media (hover: hover) {
+    &:hover {
+      // 盖掉 .internal 链接默认的 hover 底色,维持常态底色
+      background-color: color-mix(in srgb, var(--tertiary) 22%, transparent);
+      border-color: var(--secondary);
+      transform: translateY(-2px);
+
+      .item-title {
+        color: var(--secondary);
+      }
     }
-}
-
-// 模仿下面的 css 配置，把 Recent Notes 的日期也隐藏了
-// 这个 css 甚至对点开页面的时间也有隐藏的效果 (合理，都是 recent notes 插件的功能)
-// 补充：其实应该是下面 page-listing 的功劳……
-.recent-notes div.section {
-//   grid-template-columns: 3fr 1fr;
-
-  p.meta:has(> time) {
-    display: none;
   }
 }
-
-// https://github.com/jackyzha0/quartz/issues/2034
-.page-listing div.section {
-  grid-template-columns: 3fr 1fr;
-
-  p.meta:has(> time) {
-    display: none;
-  }
-}
-
-// https://github.com/jackyzha0/quartz/issues/2514
-// ul.toc-content.overflow
-// {
-//     max-height: calc(100% - 21rem); // changed from 2rem to 21rem
-// }
-// 确保父容器（侧边栏）是 Flex 列布局
-// 如果 Quartz 默认已经是，可以省略 .sidebar 选择器，直接针对 .toc
-// .sidebar, .toc {
-//     display: flex;
-//     flex-direction: column;
-//     height: 100%; // 或 100vh，视父级而定
-// }
-
-// // 让目录内容占据剩余空间，并在内部滚动
-// #toc-content, ul.toc-content.overflow {
-//     flex: 1 1 auto;      // 动态占据剩余高度
-//     min-height: 0;        // 关键：允许 flex 子项在必要时收缩
-//     overflow-y: auto;     // 内容超出时出现滚动条
-//     max-height: none;     // 移除任何固定的 max-height 限制
-// }
-// .toc {
-//     height: 100%; // 继承侧边栏高度
-//     display: flex;
-//     flex-direction: column;
-// }
-
-// #toc-content, ul.toc-content.overflow {
-//     height: 100%;
-//     max-height: calc(100% - 3.5rem); // 仅扣除按钮等固定元素的高度
-//     overflow-y: auto;
-// }
 
 .table-container > table {
 	width: 100%;

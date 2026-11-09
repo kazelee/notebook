@@ -1,7 +1,7 @@
 # yaml-language-server: $schema=./quartz/plugins/quartz-plugins.schema.json
 configuration:
   pageTitle: 孑叶的笔记本
-  pageTitleSuffix: "｜孑叶的笔记本"
+  pageTitleSuffix: "孑叶的笔记本"   # quartz\components\Head.tsx
   enableSPA: true
   enablePopovers: true
   analytics: null
@@ -49,7 +49,7 @@ configuration:
         textHighlight: "#b3aa0288"
 plugins:
   - source: "@quartz-community/created-modified-date"
-    enabled: true
+    enabled: false
     options:
       defaultDateType: created
       priority:
@@ -70,23 +70,23 @@ plugins:
     options:
       enableInHtmlEmbed: false
       enableCheckbox: true
-      highlight: false # ==高亮== 交给 quartz_highlight_colors 接管，支持内部嵌套 Markdown
+      highlight: false   # ==高亮== 交给 quartz_highlight_colors 接管，支持内部嵌套 Markdown
     order: 30
   - source: "@obsidian-tutorial/emoji-shortcodes"
-  # - source: "./quartz/plugins/emoji-shortcodes"
     enabled: true
     order: 35
   - source: "@quartz-community/github-flavored-markdown"
     enabled: true
     order: 40
   - source: "@quartz-community/table-of-contents"
-  # - source: github:quartz-community/table-of-contents
     enabled: true
     order: 50
+    options:
+      minEntries: 0   # 默认为 1，但是如果只有 1 个标题就不会显示，正常还是应该显示的
     layout:
       position: left
       priority: 50
-      display: desktop-only   # 移动端会直接跟在搜索框的右侧，也许可以通过 css 调整，不过不折腾了
+      display: desktop-only
   - source: "@quartz-community/crawl-links"
     enabled: true
     options:
@@ -111,14 +111,6 @@ plugins:
       body: 寒蝉全圆体
       header: 寒蝉全圆体
       code: JetBrains Mono
-  # - source: "@quartz-community/quartz-fonts"
-  #   enabled: true
-  #   options:
-  #     fontOrigin: googleFonts
-  #     # title: 寒蝉全圆体
-  #     # body: 寒蝉全圆体
-  #     # header: 寒蝉全圆体
-  #     code: JetBrains Mono
   - source: "@quartz-community/remove-draft"
     enabled: true
   - source: "@quartz-community/alias-redirects"
@@ -146,43 +138,14 @@ plugins:
     layout:
       position: right
       priority: 60
-  # 吐槽1: 可以更改 'explorer' 为其他字符，所以之前折腾字体其实没啥必要
-  # 吐槽2: 这个 explorer 与收起的箭头的间距，比 TOC 的间距要小，并排很不美观
-  # 吐槽3: 如果 explorer 和 TOC 都放在左侧，且 TOC 很长时，explorer 将无法打开
   - source: "@quartz-community/explorer"
-  #   enabled: true
-  #   options:
-  #     title: '文件管理'
-  #   layout:
-  #     position: right
-  #     priority: 45
-  # - source: "@quartz-community/explorer"
-    # enabled: true
-    # options:
-    #   title: '探索'
-    # layout:
-    #   position: left
-    #   priority: 45
-  # 这个是后面出现的 bug: 如果不使用本地的设置，而是使用上面直接拉取的方式，会无法显示
-  # 而如果不适用 `@` 开头的格式，没法像 issue 参考的案例一样，使用 `componentRegistry.setOptionOverrides` 进行覆盖
-  # 不过经过考量，现在觉得也没必要使用 explorer 了，本来就是因为 recent note 没法自定义才又考虑的 explorer
-  # 现在直接用 recent notes 就行，正常使用 obsidian 的习惯，本来就是双链替代文件结构，没必要强调文件
-  # 包括使用 文件夹下 index.md 的形式，将英文文件夹替换成具体的中文文本，这样是完全没有必要的，也不符合 obsidian 的使用习惯
-  # - source: github:quartz-community/explorer
     enabled: false
-    # order: 25
-    # options:
-    #   title: '文件管理'
-    # layout:
-    #   position: right
-    #   priority: 50
   - source: "@quartz-community/graph"
     enabled: true
     layout:
       position: right
       priority: 40
   - source: "@quartz-community/search"
-  # - source: github:quartz-community/search
     enabled: true
     layout:
       position: left
@@ -193,8 +156,7 @@ plugins:
   - source: "@quartz-community/backlinks"
     enabled: true
     options:
-      hideWhenEmpty: true   # 本来打算改成 false，这样移动端下方的结构固定
-                            # 但提示「无法找到反向链接」还是太突兀了，干脆使用默认
+      hideWhenEmpty: true
     layout:
       position: right
       priority: 60
@@ -204,7 +166,10 @@ plugins:
       position: beforeBody
       priority: 10
   - source: "@quartz-community/content-meta"
-    enabled: true
+    enabled: false   # 直接关掉这个就不会显示日期和阅读时间了
+    options:
+      showReadingTime: false   # 这个是专门用来关阅读时间的
+      showComma: false         # 这个是说明两个元数据之间是否需要显示逗号
     layout:
       position: beforeBody
       priority: 20
@@ -216,31 +181,20 @@ plugins:
       position: left
       priority: 10
   - source: "@quartz-community/darkmode"
-  # - source: github:quartz-community/darkmode
     enabled: true
     layout:
       position: left
       priority: 30
       group: toolbar
   - source: "@quartz-community/reader-mode"
-    enabled: false   # 主要是移动端也会显示这个按钮，让人困惑 (或者改成桌面端限定吧)
-                     # 还是去掉吧，我也不需要这个功能，多一个按钮还容易误触，没必要留着
+    enabled: false
     layout:
       position: left
       priority: 35
       group: toolbar
       display: desktop-only
-  # - source: local:quartz/components/MobileTocDrawer
-  #   enabled: true
-  #   layout:
-  #     position: left      # 放入 header（toolbar 属于 header 区域）
-  #     group: toolbar        # 归入 toolbar 组
-  #     display: mobile-only  # 关键：仅在移动端可见
-  #     priority: 10
   - source: "@quartz-community/breadcrumbs"
     enabled: true
-    # options:
-    #   title: '导航'
     layout:
       position: left
       priority: 40
@@ -249,8 +203,6 @@ plugins:
   # 既然不能支持桌面端和移动端的分支判断，自定义不同的位置，那只能开两个，然后分别设置了
   - source: "@quartz-community/breadcrumbs"
     enabled: true
-    # options:
-    #   title: '导航'
     layout:
       position: beforeBody
       priority: 5
@@ -261,31 +213,9 @@ plugins:
     options:
       links:
         GitHub: https://github.com/kazelee/notebook
-        # 字体: https://github.com/Warren2060/ChillRound
         Font: https://github.com/Warren2060/ChillRound
-        # 主题参考: https://fdscend.github.io/obsidian_tutorial/
         Theme Reference: https://fdscend.github.io/obsidian_tutorial/
-        # 部署参考: https://kazelee.github.io/zh-docs-quartz-v5/
-  # - source: local:quartz/components/FooterTargetBlank   # 本地组件路径
-  #   enabled: true
-  #   options:
-  #     links:
-  #       GitHub: https://github.com/kazelee/notebook
-  #       字体: https://github.com/Warren2060/ChillRound
-  #       主题参考: https://fdscend.github.io/obsidian_tutorial/
-  #       部署参考: https://kazelee.github.io/zh-docs-quartz-v5/
-  #   layout:
-  #     position: afterBody
-  #     priority: 100   # 数值越大越靠后，放在 afterBody 的末尾即可
-        # 部署参考: '<a herf="https://kazelee.github.io/zh-docs-quartz-v5/" target="_blank"></a>'
-  # https://jzhao.xyz/ 的 Selected Writing 是利用 Recent Notes 插件实现的
-  # 参考: https://github.com/jackyzha0/jackyzha0.github.io/blob/v4/quartz.layout.ts
-  # 但是一定会显示日期，这不是我想要的，所以没必要用这个插件实现「只显示文件夹」的效果
   - source: "@quartz-community/recent-notes"
-  # - source: github:quartz-community/recent-notes
-  # 结果，移动端发现了 bug，这个固定并不会显示在左侧，而是直接跟在搜索框和日夜主题后面，而且目录也是这样
-  # 由此可以看出，Explorer 的左侧按钮边栏，应该是 Explorer 这个插件特有的，而不是 Quartz 的移动端渲染模式
-  # 即使是作者的博客网站，也将左侧的两个 recent notes 都在移动端移动到了文档的底部，并且没有侧边的按钮
     enabled: false
     options:
       title: 固定的文档
@@ -293,8 +223,6 @@ plugins:
       showTags: false
       hideTagPages: true
       hideFolderPages: true
-      # linkToMore: true   # string | false | undefined，如果设置 true 会报错，万恶的 ts
-      # 吐槽：这个设置不是筛选什么文件应该被筛选，只是声明结果在什么 slug 下展示，绝了，然后 ts 的筛选还没用
       linkToMore: "bases/"
     order: 50
     layout:
@@ -320,10 +248,10 @@ plugins:
       includedProperties:
         - description
         - tags
-        - aliases
+        # - aliases   # Obsidian 工作区自己用就行了，没必要在网页里面展示
         - permalink
-        - source
-        - urls
+        - source   # 自用，显示 copy 文档的来源
+        - urls     # 自用，显示该文章被发布到哪些网点
       excludedProperties: []
       hidePropertiesView: false
       delimiters: ---
@@ -335,8 +263,6 @@ plugins:
       display: all
   - source: "@quartz-community/unlisted-pages"
     enabled: true
-    options: {}
-    order: 45
   - source: "@quartz-community/stacked-pages"
     enabled: false
   - source: github:FDscend/quartz_highlight_colors#v0.2.0

@@ -13,8 +13,12 @@ export default (() => {
     ctx,
   }: QuartzComponentProps) => {
     const titleSuffix = cfg.pageTitleSuffix ?? ""
-    const title =
-      (fileData.frontmatter?.title ?? i18n(cfg.locale).propertyDefaults.title) + titleSuffix
+    // https://github.com/jady21a/quartz/blob/main/quartz/components/Head.tsx
+    const baseTitle = (fileData.frontmatter?.title ?? i18n(cfg.locale).propertyDefaults.title)
+    const title = baseTitle === "记一辈子笔记！！！！！"
+      ? titleSuffix
+      : baseTitle + " | " + titleSuffix
+    
     const description =
       fileData.frontmatter?.socialDescription ??
       fileData.frontmatter?.description ??
