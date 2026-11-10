@@ -1,8 +1,4 @@
 ---
-title: Markdown格式总结
-tags:
-  - markdown
-  - obsidian
 cssclasses:
   - cloze
 source:

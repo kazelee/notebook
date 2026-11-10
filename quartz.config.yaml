@@ -82,6 +82,7 @@ plugins:
     enabled: true
     order: 50
     options:
+      maxDepth: 6     # 默认为 3，但有时需要引用查找 4 级以下的标题，还是需要显示的
       minEntries: 0   # 默认为 1，但是如果只有 1 个标题就不会显示，正常还是应该显示的
     layout:
       position: left
@@ -107,9 +108,10 @@ plugins:
     enabled: true
     options:
       fontOrigin: local
-      title: 寒蝉全圆体
-      body: 寒蝉全圆体
-      header: 寒蝉全圆体
+      # interface: LXGW 975 Yuan SC
+      title: LXGW 975 Yuan SC
+      body: LXGW 975 Yuan SC
+      header: LXGW 975 Yuan SC
       code: JetBrains Mono
   - source: "@quartz-community/remove-draft"
     enabled: true
@@ -195,6 +197,9 @@ plugins:
       display: desktop-only
   - source: "@quartz-community/breadcrumbs"
     enabled: true
+    options:
+      # spacerSymbol: "❯"
+      rootName: '主页'
     layout:
       position: left
       priority: 40
@@ -203,6 +208,9 @@ plugins:
   # 既然不能支持桌面端和移动端的分支判断，自定义不同的位置，那只能开两个，然后分别设置了
   - source: "@quartz-community/breadcrumbs"
     enabled: true
+    options:
+      # spacerSymbol: "❯"
+      rootName: '主页'
     layout:
       position: beforeBody
       priority: 5
@@ -213,8 +221,8 @@ plugins:
     options:
       links:
         GitHub: https://github.com/kazelee/notebook
-        Font: https://github.com/Warren2060/ChillRound
-        Theme Reference: https://fdscend.github.io/obsidian_tutorial/
+        Font: https://github.com/lxgw/975Yuan
+        Theme Reference: https://github.com/Akifyss/obsidian-border
   - source: "@quartz-community/recent-notes"
     enabled: false
     options:
@@ -248,7 +256,7 @@ plugins:
       includedProperties:
         - description
         - tags
-        # - aliases   # Obsidian 工作区自己用就行了，没必要在网页里面展示
+        - aliases
         - permalink
         - source   # 自用，显示 copy 文档的来源
         - urls     # 自用，显示该文章被发布到哪些网点

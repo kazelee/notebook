@@ -12,4 +12,4 @@
 
 1. 基于 [Quartz 5](https://quartz.jzhao.xyz/) 搭建（相关文档个人使用 AI 简单[翻译](https://kazelee.github.io/zh-docs-quartz-v5/)了一版）
 2. 主题参考 [Obsidian 教程 | Obsidian 教程](https://fdscend.github.io/obsidian_tutorial/)（其实是 Obsidian 的 [Border](https://github.com/Akifyss/obsidian-border) 主题）
-3. 字体使用 [寒蝉全圆体](https://github.com/Warren2060/ChillRound)，感谢 [中文网字计划](https://chinese-font.netlify.app/zh-cn/cdn/) 提供的 CDN 链接
+3. 字体使用 [霞鹜 975 圆体](https://github.com/lxgw/975Yuan)（原本使用[寒蝉全圆体](https://github.com/Warren2060/ChillRound)，私以为这个字体更符合我的审美，但考虑到前者字体更新，覆盖字集更多，且后者仍存在少量日本汉字字形，最终还是考虑使用前者）

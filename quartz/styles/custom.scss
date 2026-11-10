@@ -4,10 +4,36 @@
 @use "./snippets";
 
 :root {
-  --titleFont: "寒蝉全圆体", system-ui, "Segoe UI", Roboto, sans-serif;
-  --headerFont: "寒蝉全圆体", system-ui, "Segoe UI", Roboto, sans-serif;
-  --bodyFont: "寒蝉全圆体", system-ui, "Segoe UI", Roboto, sans-serif;
-  --codeFont: "JetBrains Mono", "寒蝉全圆体", ui-monospace, SFMono-Regular, Menlo, monospace;
+//   --interfaceFont: "LXGW 975 Yuan SC", system-ui, "Segoe UI", Roboto, sans-serif;
+  --titleFont: "LXGW 975 Yuan SC", system-ui, "Segoe UI", Roboto, sans-serif;
+  --headerFont: "LXGW 975 Yuan SC", system-ui, "Segoe UI", Roboto, sans-serif;
+  --bodyFont: "LXGW 975 Yuan SC", system-ui, "Segoe UI", Roboto, sans-serif;
+  --codeFont: "JetBrains Mono", "LXGW 975 Yuan SC", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.bases-page .bases-view-tabs {
+    margin: .5rem 0 0;   // 参考 .note-properties 修改，避免标题和按钮挨得太近
+}
+
+// 方式一：专门针对Bases视图的Tab按钮
+// 如果上述规则无效，可以尝试更具体的选择器
+.bases-page .bases-view-tabs button {
+    font-family: "LXGW 975 Yuan SC" !important;
+}
+
+// 1. 让标签容器允许换行 (如果它还不是 flex-wrap: wrap)
+.note-properties-table .note-properties-tags {
+  display: flex;
+  flex-wrap: wrap; // 确保整个标签可以换行到下一行
+//   gap: 0.4rem;     // 标签之间的间距
+  row-gap: 0.4rem;
+}
+
+// 2. 核心：阻止标签内部文字被切断
+.note-properties-table .note-properties-tags a {
+  word-break: keep-all;          // CJK 文本不换行；英文默认只在空格处换行
+  overflow-wrap: break-word;     // 仅当单词超过容器宽度时，才允许在任意处断开
+  max-width: 100%;               // 保证标签不会撑出容器
 }
 
 // https://github.com/jady21a/quartz/blob/main/quartz/styles/custom.scss

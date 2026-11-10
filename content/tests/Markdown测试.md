@@ -1,5 +1,4 @@
 ---
-title: Markdown样式测试
 unlisted: true
 ---
 
@@ -57,7 +56,7 @@ Text **Bold** Text *Italic* Text ***BoldItalic*** Text.
 
 ### 特殊文字格式
 
-[[markdown格式总结]]
+[[Markdown格式]]
 
 ==强调== ==**强调+粗体**== ==*强调+斜体*== ==**test**== ==🔴test==
 

@@ -63,11 +63,18 @@ export default (() => {
         )}
         {/* 寒蝉全圆体 webfont，通过 中文网字计划 CDN 加载 */}
         <link rel="preconnect" href="https://cdn.jsdelivr.net" crossOrigin="anonymous" />
-        <link
+        {/* <link
           rel="stylesheet"
           href="https://cn-font.claude-code-best.win/packages/hcqyt/dist/ChillRoundFRegular/result.css"
+        /> */}
+        {/* 霞鹜 975 圆体 https://fonts.zeoseven.com/items/184/ */}
+        {/* https://www.jsdelivr.com/package/npm/@free-fonts/lxgw-975-yuan */}
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/@free-fonts/lxgw-975-yuan@1.0.0/lxgw-975-yuan.min.css"
         />
         {/* 使用 CDN 的 JetBrains Mono 字体，代替 Google Fonts，避免混合配置带来的显示问题 */}
+        {/* https://www.jsdelivr.com/package/npm/@fontsource/jetbrains-mono */}
         <link
           rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono@5.3.0/400.min.css"

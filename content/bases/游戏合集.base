@@ -1,0 +1,14 @@
+views:
+  - type: table
+    name: 全部
+    filters:
+      and:
+        - file.inFolder("作品汇总/游戏")
+        - file.basename != "index"
+  - type: table
+    name: 解谜
+    filters:
+      and:
+        - file.inFolder("作品汇总/游戏")
+        - file.name != "index"
+        - file.tags.contains("解谜")
