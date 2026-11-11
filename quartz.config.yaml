@@ -6,7 +6,8 @@ configuration:
   enablePopovers: true
   analytics: null
   locale: zh-CN
-  baseUrl: kazelee.github.io/notebook
+  baseUrl: 'kazelee.github.io/notebook/'   # 为什么 base 和 文件夹下文件 的地址，都指向没有 notebook 的结果？
+                                           # 尝试添加 / 和 ''
   ignorePatterns:
     - private
     - templates
