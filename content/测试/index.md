@@ -1,7 +1,10 @@
+```base
 views:
   - type: table
     name: 视图
     filters:
       and:
-        - file.inFolder("作品汇总/音乐")
+        - file.inFolder("测试")
         - file.basename != "index"
+
+```

@@ -135,7 +135,7 @@ plugins:
   - source: "@quartz-community/folder-page"
     enabled: true
   - source: "@quartz-community/tag-page"
-    enabled: true
+    enabled: false   # 放弃使用自带的 tags，包括样式调整
     order: 50
     layout:
       position: right
@@ -255,8 +255,9 @@ plugins:
       includeAll: false
       includedProperties:
         - description
-        - tags
+        # - tags   # 放弃使用自带的 tags，包括样式调整
         - aliases
+        - wikitags
         - permalink
         - source   # 自用，显示 copy 文档的来源
         - urls     # 自用，显示该文章被发布到哪些网点

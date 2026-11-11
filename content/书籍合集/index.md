@@ -1,7 +1,10 @@
+```base
 views:
   - type: table
     name: 视图
     filters:
       and:
-        - file.inFolder("个人笔记")
+        - file.inFolder("书籍合集")
         - file.basename != "index"
+
+```

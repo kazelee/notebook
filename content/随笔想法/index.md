@@ -1,7 +1,10 @@
+```base
 views:
   - type: table
     name: 视图
     filters:
       and:
-        - file.inFolder("作品汇总/影视")
+        - file.inFolder("随笔想法")
         - file.basename != "index"
+
+```

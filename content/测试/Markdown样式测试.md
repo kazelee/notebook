@@ -1,7 +1,3 @@
----
-unlisted: true
----
-
 # 一级标题 Title I
 
 ## 二级标题 Title II
@@ -56,7 +52,7 @@ Text **Bold** Text *Italic* Text ***BoldItalic*** Text.
 
 ### 特殊文字格式
 
-[[Markdown格式]]
+[[Markdown格式总结]]
 
 ==强调== ==**强调+粗体**== ==*强调+斜体*== ==**test**== ==🔴test==
 
