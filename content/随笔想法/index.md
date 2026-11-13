@@ -1,3 +1,7 @@
+---
+permalink: 80wr5d
+---
+
 ```base
 views:
   - type: table

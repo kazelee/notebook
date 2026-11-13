@@ -16,8 +16,8 @@ export default (() => {
     // https://github.com/jady21a/quartz/blob/main/quartz/components/Head.tsx
     const baseTitle = (fileData.frontmatter?.title ?? i18n(cfg.locale).propertyDefaults.title)
     const title = baseTitle === "记一辈子笔记！！！！！"
-      ? titleSuffix
-      : baseTitle + " | " + titleSuffix
+      ? "孑叶的笔记本"
+      : baseTitle + titleSuffix
     
     const description =
       fileData.frontmatter?.socialDescription ??

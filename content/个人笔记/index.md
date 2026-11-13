@@ -1,3 +1,7 @@
+---
+permalink: 80wz2k
+---
+
 ```base
 views:
   - type: table

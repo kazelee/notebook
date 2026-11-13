@@ -1,3 +1,7 @@
+---
+permalink: 80wafs
+---
+
 ```base
 views:
   - type: table
@@ -16,6 +20,8 @@ views:
         direction: ASC
       - property: file.name
         direction: ASC
+    columnSize:
+      file.name: 126
   - type: table
     name: 解谜
     filters:

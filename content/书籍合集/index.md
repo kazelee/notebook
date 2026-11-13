@@ -1,3 +1,7 @@
+---
+permalink: 80wvmz
+---
+
 ```base
 views:
   - type: table

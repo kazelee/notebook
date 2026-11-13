@@ -1,7 +1,7 @@
 # yaml-language-server: $schema=./quartz/plugins/quartz-plugins.schema.json
 configuration:
   pageTitle: 孑叶的笔记本
-  pageTitleSuffix: "孑叶的笔记本"   # quartz\components\Head.tsx
+  pageTitleSuffix: " | 孑叶的笔记本"
   enableSPA: true
   enablePopovers: true
   analytics: null
@@ -18,8 +18,6 @@ configuration:
     - AGENTS.md
     - CLAUDE.md
   theme:
-    # 页面字体由 quartz/styles/custom.scss 的 :root 变量覆盖为 寒蝉全圆体（优先级最高）
-    # 此处保留 Google Fonts 可用的字体，供 og-image 插件渲染社交分享图时抓取/缓存
     fontOrigin: local
     cdnCaching: true
     typography:
@@ -47,6 +45,11 @@ configuration:
         tertiary: "#84a59d"
         highlight: rgba(143, 159, 169, 0.15)
         textHighlight: "#b3aa0288"
+  links:
+    markdownLinkResolution: shortest
+  contentIndex:
+    enableSiteMap: true
+    enableRSS: true
 plugins:
   - source: "@quartz-community/created-modified-date"
     enabled: false
@@ -70,11 +73,11 @@ plugins:
     options:
       enableInHtmlEmbed: false
       enableCheckbox: true
-      highlight: false   # ==高亮== 交给 quartz_highlight_colors 接管，支持内部嵌套 Markdown
+      highlight: false # ==高亮== 交给 quartz_highlight_colors 接管，支持内部嵌套 Markdown
     order: 30
-  - source: "@obsidian-tutorial/emoji-shortcodes"
-    enabled: true
-    order: 35
+  # - source: github:obsidian-tutorial/emoji-shortcodes"
+  #   enabled: true
+  #   order: 35
   - source: "@quartz-community/github-flavored-markdown"
     enabled: true
     order: 40
@@ -82,17 +85,12 @@ plugins:
     enabled: true
     order: 50
     options:
-      maxDepth: 6     # 默认为 3，但有时需要引用查找 4 级以下的标题，还是需要显示的
-      minEntries: 0   # 默认为 1，但是如果只有 1 个标题就不会显示，正常还是应该显示的
+      maxDepth: 6 # 默认为 3，但有时需要引用查找 4 级以下的标题，还是需要显示的
+      minEntries: 0 # 默认为 1，但是如果只有 1 个标题就不会显示，正常还是应该显示的
     layout:
       position: left
       priority: 50
       display: desktop-only
-  - source: "@quartz-community/crawl-links"
-    enabled: true
-    options:
-      markdownLinkResolution: shortest
-    order: 60
   - source: "@quartz-community/description"
     enabled: true
     order: 70
@@ -101,9 +99,6 @@ plugins:
     options:
       renderEngine: katex
     order: 80
-  - source: "@quartz-community/hard-line-breaks"
-    enabled: true
-    order: 90
   - source: "@quartz-community/quartz-fonts"
     enabled: true
     options:
@@ -113,19 +108,12 @@ plugins:
       body: LXGW 975 Yuan SC
       header: LXGW 975 Yuan SC
       code: JetBrains Mono
-  - source: "@quartz-community/remove-draft"
-    enabled: true
   - source: "@quartz-community/alias-redirects"
-    enabled: true
-  - source: "@quartz-community/content-index"
-    enabled: true
-    options:
-      enableSiteMap: true
-      enableRSS: true
+    enabled: false   # 别名用于 Obsidian 工作区内部引用，不需要体现在链接上
   - source: "@quartz-community/favicon"
     enabled: true
   - source: "@quartz-community/og-image"
-    enabled: true
+    enabled: false   # 构建耗时，使用场景有限，字体受限，标题拼接无法自定义
   - source: "@quartz-community/cname"
     enabled: true
   - source: "@quartz-community/canvas-page"
@@ -135,7 +123,7 @@ plugins:
   - source: "@quartz-community/folder-page"
     enabled: true
   - source: "@quartz-community/tag-page"
-    enabled: false   # 放弃使用自带的 tags，包括样式调整
+    enabled: false # 放弃使用自带的 tags，包括样式调整
     order: 50
     layout:
       position: right
@@ -168,10 +156,10 @@ plugins:
       position: beforeBody
       priority: 10
   - source: "@quartz-community/content-meta"
-    enabled: false   # 直接关掉这个就不会显示日期和阅读时间了
+    enabled: false # 直接关掉这个就不会显示日期和阅读时间了
     options:
-      showReadingTime: false   # 这个是专门用来关阅读时间的
-      showComma: false         # 这个是说明两个元数据之间是否需要显示逗号
+      showReadingTime: false # 这个是专门用来关阅读时间的
+      showComma: false # 这个是说明两个元数据之间是否需要显示逗号
     layout:
       position: beforeBody
       priority: 20
@@ -198,7 +186,7 @@ plugins:
   - source: "@quartz-community/breadcrumbs"
     enabled: true
     options:
-      # spacerSymbol: "❯"
+      spacerSymbol: "❯"
       rootName: '主页'
     layout:
       position: left
@@ -209,7 +197,7 @@ plugins:
   - source: "@quartz-community/breadcrumbs"
     enabled: true
     options:
-      # spacerSymbol: "❯"
+      spacerSymbol: "❯"
       rootName: '主页'
     layout:
       position: beforeBody
@@ -258,13 +246,10 @@ plugins:
         # - tags   # 放弃使用自带的 tags，包括样式调整
         - aliases
         - wikitags
-        - permalink
-        - source   # 自用，显示 copy 文档的来源
-        - urls     # 自用，显示该文章被发布到哪些网点
+        - source # 自用，显示 copy 文档的来源
+        - urls # 自用，显示该文章被发布到哪些网点
       excludedProperties: []
       hidePropertiesView: false
-      delimiters: ---
-      language: yaml
     order: 5
     layout:
       position: beforeBody

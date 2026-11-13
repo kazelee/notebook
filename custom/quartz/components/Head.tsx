@@ -1,0 +1,134 @@
+import { i18n } from "../i18n"
+import { FullSlug, getFileExtension, joinSegments, pathToRoot } from "../util/path"
+import { CSSResourceToStyleElement, JSResourceToScriptElement } from "../util/resources"
+import { googleFontHref, googleFontSubsetHref } from "../util/theme"
+import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } from "./types"
+import { unescapeHTML } from "../util/escape"
+
+export default (() => {
+  const Head: QuartzComponent = ({
+    cfg,
+    fileData,
+    externalResources,
+    ctx,
+  }: QuartzComponentProps) => {
+    const titleSuffix = cfg.pageTitleSuffix ?? ""
+    // https://github.com/jady21a/quartz/blob/main/quartz/components/Head.tsx
+    const baseTitle = (fileData.frontmatter?.title ?? i18n(cfg.locale).propertyDefaults.title)
+    const title = baseTitle === "记一辈子笔记！！！！！"
+      ? "孑叶的笔记本"
+      : baseTitle + titleSuffix
+    
+    const description =
+      fileData.frontmatter?.socialDescription ??
+      fileData.frontmatter?.description ??
+      unescapeHTML(fileData.description?.trim() ?? i18n(cfg.locale).propertyDefaults.description)
+
+    const { css, js, additionalHead } = externalResources
+
+    const url = new URL(`https://${cfg.baseUrl ?? "example.com"}`)
+    const path = url.pathname as FullSlug
+    const baseDir = fileData.slug === "404" ? path : pathToRoot(fileData.slug!)
+    const iconPath = joinSegments(baseDir, "static/icon.png")
+
+    // Url of current page
+    const socialUrl =
+      fileData.slug === "404" ? url.toString() : joinSegments(url.toString(), fileData.slug!)
+
+    const usesCustomOgImage = ctx.cfg.plugins.emitters.some((e) => e.name === "CustomOgImages")
+    const ogImageDefaultPath = `https://${cfg.baseUrl}/static/og-image.png`
+
+    const coreStylesheet = css[0]?.content
+    const coreScript = js.find(
+      (r) => r.loadTime === "beforeDOMReady" && r.contentType === "external",
+    )
+
+    return (
+      <head>
+        <title>{title}</title>
+        <meta charSet="utf-8" />
+        {coreStylesheet && <link rel="preload" href={coreStylesheet} as="style" />}
+        {coreScript && coreScript.contentType === "external" && (
+          <link rel="preload" href={coreScript.src} as="script" />
+        )}
+        {cfg.theme.cdnCaching && cfg.theme.fontOrigin === "googleFonts" && (
+          <>
+            <link rel="preconnect" href="https://fonts.googleapis.com" />
+            <link rel="preconnect" href="https://fonts.gstatic.com" />
+            <link rel="stylesheet" href={googleFontHref(cfg.theme)} />
+            {cfg.theme.typography.title && (
+              <link rel="stylesheet" href={googleFontSubsetHref(cfg.theme, cfg.pageTitle)} />
+            )}
+          </>
+        )}
+        {/* 寒蝉全圆体 webfont，通过 中文网字计划 CDN 加载 */}
+        <link rel="preconnect" href="https://cdn.jsdelivr.net" crossOrigin="anonymous" />
+        {/* <link
+          rel="stylesheet"
+          href="https://cn-font.claude-code-best.win/packages/hcqyt/dist/ChillRoundFRegular/result.css"
+        /> */}
+        {/* 霞鹜 975 圆体 https://fonts.zeoseven.com/items/184/ */}
+        {/* https://www.jsdelivr.com/package/npm/@free-fonts/lxgw-975-yuan */}
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/@free-fonts/lxgw-975-yuan@1.0.0/lxgw-975-yuan.min.css"
+        />
+        {/* 使用 CDN 的 JetBrains Mono 字体，代替 Google Fonts，避免混合配置带来的显示问题 */}
+        {/* https://www.jsdelivr.com/package/npm/@fontsource/jetbrains-mono */}
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono@5.3.0/400.min.css"
+        />
+        <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossOrigin="anonymous" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <meta name="og:site_name" content={cfg.pageTitle}></meta>
+        <meta property="og:title" content={title} />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={description} />
+        <meta property="og:description" content={description} />
+        <meta property="og:image:alt" content={description} />
+
+        {!usesCustomOgImage && (
+          <>
+            <meta property="og:image" content={ogImageDefaultPath} />
+            <meta property="og:image:url" content={ogImageDefaultPath} />
+            <meta name="twitter:image" content={ogImageDefaultPath} />
+            <meta
+              property="og:image:type"
+              content={`image/${getFileExtension(ogImageDefaultPath) ?? "png"}`}
+            />
+          </>
+        )}
+
+        {cfg.baseUrl && (
+          <>
+            <meta property="twitter:domain" content={cfg.baseUrl}></meta>
+            <meta property="og:url" content={socialUrl}></meta>
+            <meta property="twitter:url" content={socialUrl}></meta>
+          </>
+        )}
+
+        <link rel="icon" href={iconPath} />
+        <meta name="description" content={description} />
+        <meta name="generator" content="Quartz" />
+
+        {css.map((resource) => CSSResourceToStyleElement(resource, true))}
+        {js
+          .filter((resource) => resource.loadTime === "beforeDOMReady")
+          .map((res) => JSResourceToScriptElement(res, true))}
+        {additionalHead.map((resource) => {
+          if (typeof resource === "function") {
+            return resource(fileData)
+          } else {
+            return resource
+          }
+        })}
+      </head>
+    )
+  }
+
+  return Head
+}) satisfies QuartzComponentConstructor

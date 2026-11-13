@@ -1,3 +1,7 @@
+---
+permalink: 80wilo
+---
+
 ```base
 views:
   - type: table
