@@ -13,8 +13,12 @@ export default (() => {
     ctx,
   }: QuartzComponentProps) => {
     const titleSuffix = cfg.pageTitleSuffix ?? ""
-    const title =
-      (fileData.frontmatter?.title ?? i18n(cfg.locale).propertyDefaults.title) + titleSuffix
+    // https://github.com/jady21a/quartz/blob/main/quartz/components/Head.tsx
+    const baseTitle = (fileData.frontmatter?.title ?? i18n(cfg.locale).propertyDefaults.title)
+    const title = baseTitle === "记一辈子笔记！！！！！"
+      ? "孑叶的笔记本"
+      : baseTitle + titleSuffix
+    
     const description =
       fileData.frontmatter?.socialDescription ??
       fileData.frontmatter?.description ??
@@ -57,6 +61,19 @@ export default (() => {
             )}
           </>
         )}
+        <link rel="preconnect" href="https://cdn.jsdelivr.net" crossOrigin="anonymous" />
+        {/* 霞鹜 975 圆体 https://fonts.zeoseven.com/items/184/ */}
+        {/* https://www.jsdelivr.com/package/npm/@free-fonts/lxgw-975-yuan */}
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/@free-fonts/lxgw-975-yuan@1.0.0/lxgw-975-yuan.min.css"
+        />
+        {/* 使用 CDN 的 JetBrains Mono 字体，代替 Google Fonts，避免混合配置带来的显示问题 */}
+        {/* https://www.jsdelivr.com/package/npm/@fontsource/jetbrains-mono */}
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono@5.3.0/400.min.css"
+        />
         <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossOrigin="anonymous" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 

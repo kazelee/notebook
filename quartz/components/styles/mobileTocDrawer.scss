@@ -1,0 +1,102 @@
+// @use "../../styles/variables.scss" as *;
+
+// .mobile-toc-drawer-container {
+//   // 容器本身不占据 toolbar 的额外空间
+//   display: contents;
+// }
+
+// // 触发按钮样式
+// .mobile-toc-trigger {
+//   display: none; // 默认隐藏，由 .mobile-only 类在移动端激活
+//   background: none;
+//   border: none;
+//   cursor: pointer;
+//   padding: 0.5rem;
+//   color: var(--dark);
+//   align-items: center;
+//   justify-content: center;
+// }
+
+// .mobile-only .mobile-toc-trigger {
+//   display: flex;
+// }
+
+// // 遮罩层
+// .mobile-toc-overlay {
+//   position: fixed;
+//   inset: 0;
+//   background: rgba(0, 0, 0, 0.4);
+//   z-index: 998;
+//   opacity: 0;
+//   visibility: hidden;
+//   transition: opacity 0.3s ease, visibility 0.3s ease;
+
+//   &.active {
+//     opacity: 1;
+//     visibility: visible;
+//   }
+// }
+
+// // 抽屉面板
+// .mobile-toc-panel {
+//   position: fixed;
+//   top: 0;
+//   right: 0;
+//   width: min(85vw, 360px); // 移动端友好的宽度
+//   height: 100dvh;
+//   background: var(--light);
+//   z-index: 999;
+//   transform: translateX(100%); // 默认完全移出屏幕
+//   transition: transform 0.3s ease-in-out;
+//   display: flex;
+//   flex-direction: column;
+//   box-shadow: -4px 0 12px rgba(0, 0, 0, 0.1);
+//   will-change: transform; // 性能提示
+
+//   &.active {
+//     transform: translateX(0); // 滑入
+//   }
+// }
+
+// .mobile-toc-header {
+//   display: flex;
+//   justify-content: space-between;
+//   align-items: center;
+//   padding: 1rem;
+//   border-bottom: 1px solid var(--lightgray);
+//   font-weight: 600;
+// }
+
+// .mobile-toc-close {
+//   background: none;
+//   border: none;
+//   cursor: pointer;
+//   color: var(--dark);
+//   padding: 0.25rem;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+// }
+
+// .mobile-toc-content {
+//   flex: 1;
+//   overflow-y: auto;
+//   padding: 1rem;
+
+//   // 微调内置 TOC 在抽屉内的样式
+//   .toc {
+//     max-height: none !important;
+//   }
+//   #toc-content {
+//     max-height: none !important;
+//     visibility: visible !important;
+//   }
+// }
+
+// // 确保桌面端完全不渲染相关交互元素
+// @media all and not ($mobile) {
+//   .mobile-toc-overlay,
+//   .mobile-toc-panel {
+//     display: none !important;
+//   }
+// }

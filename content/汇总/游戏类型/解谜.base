@@ -1,0 +1,24 @@
+filters:
+  and:
+    - file.inFolder("笔记/游戏")
+views:
+  - type: table
+    name: 解谜
+    filters:
+      and:
+        - note["游戏类型"].contains("解谜")
+    order:
+      - file.name
+      - year
+      - aliases
+      - 游戏类型
+  - type: table
+    name: 指向点击
+    filters:
+      and:
+        - note["游戏类型"].contains("指向点击")
+    order:
+      - file.name
+      - year
+      - aliases
+      - 游戏类型

@@ -1,0 +1,41 @@
+filters:
+  and:
+    - file.inFolder("笔记/邦邦/邦邦角色")
+views:
+  - type: table
+    name: 角色
+    groupBy:
+      property: 邦邦乐队
+      direction: ASC
+    groupOrder:
+      - Poppin'Party
+      - Afterglow
+      - Pastel*Palettes
+      - Roselia
+      - Hello, Happy World!
+      - Morfonica
+      - RAISE A SUILEN
+      - MyGO!!!!!
+      - Ave Mujica
+      - 梦限大MewType
+      - millsage
+      - 一家Dumb Rock!
+    order:
+      - file.name
+      - aliases
+      - 邦邦乐队
+    sort:
+      - property: order
+        direction: ASC
+    columnSize:
+      file.name: 98
+      note.aliases: 245
+  - type: cards
+    name: 角色卡片
+    order:
+      - file.name
+    sort:
+      - property: order
+        direction: ASC
+    image: note.image
+    cardSize: 150
