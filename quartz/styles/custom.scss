@@ -15,7 +15,7 @@
   flex-wrap: wrap;
   gap: 0.5rem 1.5rem;   /* 行间距 / 列间距，可自己调 */
   padding: 0;
-  margin: 0;
+//   margin: 0;
   list-style: none;
 }
 
@@ -525,100 +525,82 @@ audio {
 /* === class.css === */
 
 /* ---------- cloze hover：斜体删除线 *~~文本~~*（保留 cloze 原样式） ---------- */
-.cloze em > del,
-.cloze .cm-em.cm-strikethrough:not(.cm-active > span) {
+em > del,
+.cm-em.cm-strikethrough:not(.cm-active > span) {
   border-bottom: 2px dashed rgb(67, 157, 237);
   font-style: normal;
   text-decoration: none;
   color: transparent;
   transition: color 0.3s;
 }
-.cloze .cm-active > .cm-em.cm-strikethrough {
+.cm-active > .cm-em.cm-strikethrough {
   border-bottom: 2px dashed rgb(67, 157, 237);
   font-style: normal;
   text-decoration: none;
 }
-.cloze em > del:hover,
-.cloze .cm-em.cm-strikethrough:hover:not(.cm-active > span) {
+em > del:hover,
+.cm-em.cm-strikethrough:hover:not(.cm-active > span) {
   color: var(--text-normal);
   transition: color 0.3s;
 }
 
 /* ---------- cloze hover：高亮删除线 ==~~文本~~==（采用 cloze2 样式，改为悬停） ---------- */
-.cloze .text-highlight:has(> del) {
+.text-highlight:has(> del) {
   background-color: rgba(250, 248, 248, 1);
   border-radius: 3px;
   color: transparent;
   transition: color 0.3s, background-color 0.3s;
 }
-.cloze .text-highlight:has(> del) > del {
+.text-highlight:has(> del) > del {
   text-decoration: none;
 }
-.cloze .text-highlight:has(> del):hover {
+.text-highlight:has(> del):hover {
   background-color: transparent;
   color: var(--text-normal);
 }
-.cloze .text-highlight:not(:has(> del)) {
+.text-highlight:not(:has(> del)) {
   background-color: var(--text-highlight-bg);
 }
 
 /* 暗色模式：深色背景 */
-:root[saved-theme="dark"] .cloze .text-highlight:has(> del) {
+:root[saved-theme="dark"] .text-highlight:has(> del) {
   background-color: rgba(22, 22, 24, 0.9);
 }
 
 /* ---------- 编辑器 live preview 里的 ==~~…~~== ---------- */
-.cloze .cm-highlight.cm-strikethrough {
+.cm-highlight.cm-strikethrough {
   background-color: rgba(250, 248, 248, 1);
   border-radius: 3px;
   text-decoration: none;
   color: transparent;
   transition: color 0.3s, background-color 0.3s;
 }
-.cloze .cm-highlight.cm-strikethrough:hover {
+.cm-highlight.cm-strikethrough:hover {
   background-color: transparent;
   color: var(--text-normal);
 }
-.cloze .cm-active > .cm-highlight.cm-strikethrough {
+.cm-active > .cm-highlight.cm-strikethrough {
   text-decoration: none;
 }
-.cloze .cm-highlight:not(.cm-strikethrough):not([class*="cm-highlight-"]) {
+.cm-highlight:not(.cm-strikethrough):not([class*="cm-highlight-"]) {
   background-color: var(--text-highlight-bg);
 }
 
 /* 方案二：暗色覆盖 */
-:root[saved-theme="dark"] .cloze .cm-highlight.cm-strikethrough {
+:root[saved-theme="dark"] .cm-highlight.cm-strikethrough {
   background-color: rgba(22, 22, 24, 0.9);
 }
 
 /* ---------- 打印：始终隐藏 ---------- */
 @media print {
-  .cloze .text-highlight > del,
-  .cloze em > del {
+  .text-highlight > del,
+  em > del {
     color: transparent;
   }
-  .cloze .text-highlight:has(> del) {
+  .text-highlight:has(> del) {
     background-color: transparent;
     border-radius: unset;
   }
-}
-
-/* ---------- cloze-ans：显示答案 ---------- */
-/* *~~文本~~* 保持 cloze 原样式（带蓝色虚线） */
-.cloze-ans em > del,
-.cloze-ans .cm-em.cm-strikethrough {
-  border-bottom: 2px dashed rgb(67, 157, 237);
-  font-style: normal;
-  text-decoration: none;
-  color: var(--text-normal);
-}
-/* ==~~文本~~== 采用 cloze2-ans 样式（无虚线、无背景，直接显示文字） */
-.cloze-ans .text-highlight > del {
-  text-decoration: none;
-  color: var(--text-normal);
-}
-.cloze-ans .text-highlight:has(> del) {
-  background-color: transparent;
 }
 
 /* slides */

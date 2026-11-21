@@ -111,6 +111,8 @@ plugins:
     enabled: true
   - source: "@quartz-community/folder-page"
     enabled: true
+    options:
+      showFolderCount: false # 对于包含附件的文本，会变成 Folder Note，这时不应该显示
   - source: "@quartz-community/tag-page"
     enabled: false # 不使用标签
   - source: "@quartz-community/explorer"
