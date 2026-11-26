@@ -7,12 +7,7 @@ aliases:
 
 > 参考：[快速导出B站收藏单节目列表 - 鱼肉真好吃 - 博客园](https://www.cnblogs.com/toumingbai/p/11399238.html)
 
-> [!INFO]
-> 
-> 脚本末尾有 `标题` 和 `简介` 的变量声明，在控制台粘贴后需要手动改成实际收藏夹的标题和简介。
-> （默认文件名是 `标题.html`，简介内容是 `\n简介\n`）
-
-```js {202,205}
+```js
 function escapeHtml(str) {
     return (str == null ? "" : String(str)).replace(/[&<>"']/g, function (s) {
         return {

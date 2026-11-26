@@ -51,6 +51,13 @@ configuration:
     enableSiteMap: true
     enableRSS: true
 plugins:
+  # 内嵌图片使用灯箱（Lightbox）的点击放大效果
+  - source: github:MrVauxs/quartz-clickable-images-zoom-plugin
+    enabled: true
+    options:
+      enableLightbox: true
+      wrapperClass: "lightbox-wrapper"
+      imageClass: "lightbox-image"
   - source: "@quartz-community/created-modified-date"
     enabled: false
   - source: "@quartz-community/syntax-highlighting"

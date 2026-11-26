@@ -1,6 +1,12 @@
 {
   "version": "1.0.0",
   "plugins": {
+    "quartz-clickable-images-zoom-plugin": {
+      "source": "github:MrVauxs/quartz-clickable-images-zoom-plugin",
+      "resolved": "https://github.com/MrVauxs/quartz-clickable-images-zoom-plugin.git",
+      "commit": "5236d343b8cf0b3d5db9d5f340ce0628bcf4e176",
+      "installedAt": "2026-11-22T08:31:34.319Z"
+    },
     "quartz_highlight_colors": {
       "source": "github:FDscend/quartz_highlight_colors#v0.2.0",
       "resolved": "https://github.com/FDscend/quartz_highlight_colors.git",
